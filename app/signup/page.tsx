@@ -1,156 +1,172 @@
-"use client";
-import React, { FormEvent, useState } from "react";
+'use client'
+
+import React, { FormEvent, useState } from "react"
 import { useRouter } from 'next/navigation'
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
-import axios from "axios";
-import {
-  IconBrandGithub,
-  IconBrandGoogle,
-} from "@tabler/icons-react";
-import Link from "next/link";
+import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react"
+import Link from "next/link"
+import { SparklesCore } from "@/components/ui/sparkles"
+import axios from "axios"
 
 export default function SignupForm() {
-    const [FirstName, SetFirstName] = useState('');
-    const [LastName, SetLastName] = useState('');
-    const [email,setEmail] = useState('');
-    const [password,setPassword] = useState('');
-    const router = useRouter()
-    const handleSubmit = async (e:FormEvent) =>{
-        e.preventDefault();
-        try {
-            const payload = {FirstName,LastName,email,password}
-            const res = await axios.post('/api/auth/signup',payload,{
-                headers: {'Content-Type': 'application/jason'}
-            })
-            const userData = res.data
-            localStorage.setItem('token',userData.token)
-            router.push('/login')
-        } catch (error) {
-            console.log(error)
-        }
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const router = useRouter()
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault()
+    try {
+      const payload = { firstName, lastName, email, password }
+      const res = await axios.post('/api/auth/signup', payload, {
+        headers: { 'Content-Type': 'application/json' }
+      })
+      const userData = res.data
+      localStorage.setItem('token', userData.token)
+      router.push('/login')
+    } catch (error) {
+      console.error(error)
     }
+  }
+
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8 bg-black dark:bg-gray-900">
-    <div className="max-w-md w-full mx-auto lg:my-10 rounded-none md:rounded-2xl p-4 shadow-lg border border-gray-300 dark:border-gray-700 md:p-8 shadow-input bg-white dark:bg-black">
-      <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
-      Join Smart Data Analyst
-      </h2>
-      <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
-      Sign up today to start analyzing your data and generating actionable insights!
-      </p>
+    <div className="flex flex-col min-h-screen bg-gradient-to-b from-black to-gray-900 text-white overflow-hidden">
+      <div className="flex-grow flex items-center justify-center p-6">
+        <div className="w-full max-w-md space-y-8 relative">
+          <div className="text-center">
+            <h2 className="text-4xl font-bold mb-2">Join Smart Data Analyst</h2>
+            <p className="text-gray-400">Sign up today to start analyzing your data and generating actionable insights!</p>
+          </div>
 
-      <form className="my-8" onSubmit={handleSubmit}>
-        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
-          <LabelInputContainer>
-            <Label htmlFor="firstName">First name</Label>
-            <Input 
-                id="firstName"
-                value={FirstName}
-                onChange={(e)=>{SetFirstName(e.target.value);}}
-                required
-                placeholder=""
-                type="text" 
-            />
-          </LabelInputContainer>
-          <LabelInputContainer>
-            <Label htmlFor="lastName">Last name</Label>
-            <Input 
-                id="lastName" 
-                value={LastName}
-                onChange={(e)=>{SetLastName(e.target.value);}}
-                placeholder="" 
-                type="text" />
-          </LabelInputContainer>
-        </div>
-        <LabelInputContainer className="mb-4">
-          <Label htmlFor="email">Email Address</Label>
-          <Input 
-            id="email" 
-            value={email}
-            onChange={(e)=>{setEmail(e.target.value);}}
-            placeholder="test@gmail.com" 
-            type="email" 
-            />
-        </LabelInputContainer>
-        <LabelInputContainer className="mb-4">
-          <Label htmlFor="password">Password</Label>
-          <Input 
-            id="password" 
-            value={password}
-            onChange={(e)=>{setPassword(e.target.value)}}
-            placeholder="••••••••" 
-            type="password" 
-            />
-        </LabelInputContainer>
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="firstName" className="sr-only">
+                    First name
+                  </Label>
+                  <Input
+                    id="firstName"
+                    name="firstName"
+                    type="text"
+                    required
+                    className="bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="First name"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="lastName" className="sr-only">
+                    Last name
+                  </Label>
+                  <Input
+                    id="lastName"
+                    name="lastName"
+                    type="text"
+                    required
+                    className="bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Last name"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="email" className="sr-only">
+                  Email address
+                </Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  className="bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div>
+                <Label htmlFor="password" className="sr-only">
+                  Password
+                </Label>
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="new-password"
+                  required
+                  className="bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+            </div>
 
-        <button
-          className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-          type="submit"
-        >
-          Sign up &rarr;
-          <BottomGradient />
-        </button>
-        <button className="px-[5.5rem] py-2 text-white rounded-lg font-bold transform hover:-translate-y-1 transition duration-400">
-            <Link href="/login">
-            Already Have Account!
+            <div>
+              <Button
+                type="submit"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-300"
+              >
+                Sign up
+              </Button>
+            </div>
+          </form>
+
+          <div className="mt-6">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-700"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-gray-900 text-gray-400">Or continue with</span>
+              </div>
+            </div>
+
+            <div className="mt-6 grid grid-cols-2 gap-3">
+              <Button
+                type="button"
+                className="w-full bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-md transition duration-300 flex items-center justify-center"
+              >
+                <IconBrandGithub className="w-5 h-5 mr-2" />
+                GitHub
+              </Button>
+              <Button
+                type="button"
+                className="w-full bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-md transition duration-300 flex items-center justify-center"
+              >
+                <IconBrandGoogle className="w-5 h-5 mr-2" />
+                Google
+              </Button>
+            </div>
+          </div>
+
+          <p className="mt-8 text-center text-sm text-gray-400">
+            Already have an account?{' '}
+            <Link href="/login" className="font-medium text-blue-500 hover:text-blue-400">
+              Sign in
             </Link>
-        </button>
-      
-
-
-
-        <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
-
-        <div className="flex flex-col space-y-4">
-          <button
-            className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-              GitHub
-            </span>
-            <BottomGradient />
-          </button>
-          <button
-            className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-              Google
-            </span>
-            <BottomGradient />
-          </button>
-          
+          </p>
         </div>
-      </form>
+      </div>
+
+      <div className="w-full h-24 absolute bottom-0 left-0">
+        <SparklesCore
+          id="tsparticles"
+          background="transparent"
+          minSize={0.6}
+          maxSize={1.4}
+          particleDensity={100}
+          className="w-full h-full"
+          particleColor="#FFFFFF"
+        />
+      </div>
     </div>
-    </div>
-  );
+  )
 }
-
-const BottomGradient = () => {
-  return (
-    <>
-      <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-      <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
-    </>
-  );
-};
-
-const LabelInputContainer = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
-  return (
-    <div className={cn("flex flex-col space-y-2 w-full", className)}>
-      {children}
-    </div>
-  );
-};

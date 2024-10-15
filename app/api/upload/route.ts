@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
 
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
-  const uploadDir = 'D:\\BE Project\\Backend';
+  const uploadDir = 'D:\\BE Project\\Backend\\Files';
   const path = join(uploadDir, file.name);
   try {
     await writeFile(path, buffer);

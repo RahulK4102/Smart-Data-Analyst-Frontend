@@ -5,9 +5,8 @@ import axios from "axios"
 import { BackgroundBeams } from "@/components/ui/background-beams"
 import { FileUpload } from "@/components/ui/file-upload"
 import { Button } from "@/components/ui/button"
-import { Menu } from "lucide-react"
+import { Menu, LogOut } from "lucide-react"
 import Link from "next/link"
-import Image from "next/image"
 import { useRouter } from "next/navigation"
 
 export default function BackgroundBeamsDemo() {
@@ -45,56 +44,61 @@ export default function BackgroundBeamsDemo() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-neutral-950 relative flex flex-col antialiased">
-      <nav className="relative z-10 w-full">
+    <div className="min-h-screen w-full bg-gradient-to-b from-black to-gray-900 relative flex flex-col antialiased">
+      <nav className="relative z-10 w-full bg-gray-900 bg-opacity-50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
-              <span className="text-neutral-200 text-xl font-bold">Smart Data Analyst</span>
+              <span className="text-white text-xl font-bold">Smart Data Analyst</span>
             </div>
             <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-4">
-                <Link href="/DashBoard" className="text-neutral-300 hover:text-neutral-100 px-3 py-2 rounded-md text-sm font-medium">
+              <div className="ml-10 flex items-center space-x-4">
+                <Link href="/Dashboard" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">
                   Home
                 </Link>
-                <Link href="#" className="text-neutral-300 hover:text-neutral-100 px-3 py-2 rounded-md text-sm font-medium">
+                <Link href="#" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">
                   About
                 </Link>
-                <Link href="#" className="text-neutral-300 hover:text-neutral-100 px-3 py-2 rounded-md text-sm font-medium">
+                <Link href="#" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">
                   Services
                 </Link>
-                <Link href="#" className="text-neutral-300 hover:text-neutral-100 px-3 py-2 rounded-md text-sm font-medium">
+                <Link href="#" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">
                   Contact
                 </Link>
-                <button 
-                  onClick={handleLogout} 
-                  className="flex items-center justify-center text-neutral-300 hover:text-neutral-100 px-3 py-2 rounded-md text-sm font-medium"
+                <Button
+                  onClick={handleLogout}
+                  variant="ghost"
+                  size="icon"
+                  className="text-gray-300 hover:text-white transition duration-150 ease-in-out"
                 >
-                  <Image 
-                    src="/logout.svg"
-                    alt="Logout"
-                    width={24} 
-                    height={24}
-                  />
-                </button>
+                  <LogOut className="h-5 w-5" />
+                  <span className="sr-only">Logout</span>
+                </Button>
               </div>
+            </div>
+            <div className="md:hidden">
+              <Button variant="ghost" size="icon">
+                <Menu className="h-6 w-6 text-white" />
+              </Button>
             </div>
           </div>
         </div>
       </nav>
 
-      <div className="flex-grow flex flex-col items-center justify-center">
-        <div className="max-w-3xl mx-auto p-4">
-          <h1 className="relative z-10 text-lg md:text-7xl bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600 text-center font-sans font-bold">
+      <div className="flex-grow flex flex-col items-center justify-center px-4">
+        <div className="max-w-3xl mx-auto text-center">
+          <h1 className="text-4xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-blue-400 to-blue-600 mb-6">
             Smart Data Analyst
           </h1>
-          <p className="text-neutral-500 max-w-lg mx-auto my-2 text-sm text-center relative z-10">
+          <p className="text-gray-400 max-w-lg mx-auto my-4 text-sm md:text-base">
             Welcome to the Smart Data Analyst and Report Generator! Upload your data, analyze trends, and generate actionable insights with tailored interactive reports for smarter business decisions.
           </p>
-          <FileUpload onChange={handleFileUpload} />
-          {uploadStatus && (
-            <p className="text-neutral-300 text-center mt-4">{uploadStatus}</p>
-          )}
+          <div className="mt-8">
+            <FileUpload onChange={handleFileUpload} />
+            {uploadStatus && (
+              <p className="text-blue-400 mt-4">{uploadStatus}</p>
+            )}
+          </div>
         </div>
       </div>
 
