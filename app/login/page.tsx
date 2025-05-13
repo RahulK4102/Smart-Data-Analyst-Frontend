@@ -8,20 +8,52 @@ import { Button } from "@/components/ui/button"
 import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react"
 import Link from "next/link"
 import { SparklesCore } from "@/components/ui/sparkles"
-
+import axios from "axios"
+import { Skeleton } from "@/components/ui/skeleton"
 export default function LoginForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+    setLoading(true)
+    setErrorMessage(null)
+
     try {
-      // Implement your login logic here
-      router.push('/DashBoard')
-    } catch (error) {
+      const response = await axios.post("/api/auth/login", {
+        email,
+        password,
+      })
+
+      const { token, UserId } = response.data
+
+      localStorage.setItem("token", token)
+      console.log(response)
+      router.push(`/DashBoard?userId=${UserId}`)
+    } catch (error: any) {
       console.error(error)
+      setErrorMessage(
+        error.response?.data?.message || "An error occurred. Please try again."
+      )
+    } finally {
+      setLoading(false)
     }
+  }
+  if(loading){
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black">
+  <div className="flex items-center space-x-4">
+    <Skeleton className="h-12 w-12 rounded-full" />
+    <div className="space-y-2">
+      <Skeleton className="h-4 w-[250px]" />
+      <Skeleton className="h-4 w-[200px]" />
+    </div>
+  </div>
+</div>
+    )
   }
 
   return (
@@ -69,12 +101,17 @@ export default function LoginForm() {
               </div>
             </div>
 
+            {errorMessage && (
+              <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
+            )}
+
             <div>
               <Button
                 type="submit"
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-300"
+                disabled={loading}
               >
-                Sign in
+                {loading ? "Signing in..." : "Sign in"}
               </Button>
             </div>
           </form>

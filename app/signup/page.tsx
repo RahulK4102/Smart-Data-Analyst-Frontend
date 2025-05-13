@@ -11,8 +11,8 @@ import { SparklesCore } from "@/components/ui/sparkles"
 import axios from "axios"
 
 export default function SignupForm() {
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
+  const [FirstName, setFirstName] = useState('')
+  const [LastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const router = useRouter()
@@ -20,7 +20,7 @@ export default function SignupForm() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     try {
-      const payload = { firstName, lastName, email, password }
+      const payload = { FirstName, LastName, email, password }
       const res = await axios.post('/api/auth/signup', payload, {
         headers: { 'Content-Type': 'application/json' }
       })
@@ -55,7 +55,7 @@ export default function SignupForm() {
                     required
                     className="bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="First name"
-                    value={firstName}
+                    value={FirstName}
                     onChange={(e) => setFirstName(e.target.value)}
                   />
                 </div>
@@ -70,7 +70,7 @@ export default function SignupForm() {
                     required
                     className="bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Last name"
-                    value={lastName}
+                    value={LastName}
                     onChange={(e) => setLastName(e.target.value)}
                   />
                 </div>
