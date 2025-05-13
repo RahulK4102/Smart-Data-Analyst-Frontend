@@ -9,10 +9,8 @@ datasource db {
 
 model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt DateTime @db.Date
-  email     String
+  email     String @unique
   firstName String
   lastName  String
   password  String
-  updatedAt DateTime @db.Date
 }

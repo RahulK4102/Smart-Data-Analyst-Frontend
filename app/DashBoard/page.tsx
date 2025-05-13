@@ -61,7 +61,7 @@ export default function SmartDataAnalystPage() {
     {
       id: "1",
       content: {
-        text: "Hello! I'm your Smart Data Analyst assistant. Your report has been generated. How can I help you understand the insights?",
+        text: "Hello! Im your Smart Data Analyst assistant. Your report has been generated. How can I help you understand the insights?",
       },
       sender: "bot",
       timestamp: new Date(),
@@ -557,7 +557,7 @@ export default function SmartDataAnalystPage() {
       const botTextMessage: Message = {
         id: (Date.now() + 1).toString(),
         content: {
-          text: message || "Here's the result of your query:",
+          text: message || "Heres the result of your query:",
         },
         sender: "bot",
         timestamp: new Date(),
@@ -923,7 +923,7 @@ export default function SmartDataAnalystPage() {
                   <option value="">-- Select an option --</option>
                   <option value="drop_column">1) Drop Column</option>
                   <option value="drop_nulls">2) Drop Rows with Nulls</option>
-                  <option value="fill_na">3) Fill with 'N/A' (for object)</option>
+                  <option value="fill_na">3) Fill with  (for object)</option>
                   <option value="fill_mean">4) Fill with Mean</option>
                   <option value="fill_median">5) Fill with Median</option>
                   <option value="fill_mode">6) Fill with Most Common Value</option>
