@@ -109,6 +109,9 @@ export default function SmartDataAnalystPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const chatContainerRef = useRef<HTMLDivElement>(null)
 
+  useEffect(() => {
+    
+  }, [])
   const router = useRouter()
   const searchParams = useSearchParams()
   const userId = searchParams.get("userId")
