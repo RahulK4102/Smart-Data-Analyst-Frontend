@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import type React from "react"
 
@@ -55,7 +55,7 @@ export default function SmartDataAnalystPage() {
   const [showReportButton, setShowReportButton] = useState<boolean>(false)
   const [showChatbot, setShowChatbot] = useState<boolean>(false)
   const [reportData, setReportData] = useState<any>(null)
-
+  const [userId, setUserId]= useState<undefined | string>(undefined);
   // Chatbot states
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -110,11 +110,13 @@ export default function SmartDataAnalystPage() {
   const chatContainerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    
+    const id = searchParams.get("userId");
+    if(id){
+      setUserId(id);
+    }
   }, [])
   const router = useRouter()
   const searchParams = useSearchParams()
-  const userId = searchParams.get("userId")
 
   // Message sets for different operations
   const typingMessages = {
