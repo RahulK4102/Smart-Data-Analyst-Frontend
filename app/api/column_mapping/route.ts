@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     console.log("inside the data cleaning"+context);
     try {
       const response = await axios.post(
-        'http://127.0.0.1:5000/map_columns',
+        'https://smart-data-backend.onrender.com/map_columns',
         { user_id,context:context },
         {
           headers: {

@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const response = await axios.post(
-      'http://127.0.0.1:5000/detect_outliers',
+      'https://smart-data-backend.onrender.com/detect_outliers',
       { user_id },
       {
         headers: {
