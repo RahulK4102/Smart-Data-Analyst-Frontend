@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     console.log("inside the data cleaning"+mapping);
     try {
       const response = await axios.post(
-        'http://127.0.0.1:5000/submit_mapping',
+        'https://smart-data-backend.onrender.com/submit_mapping',
         { user_id,mapping:mapping },
         {
           headers: {

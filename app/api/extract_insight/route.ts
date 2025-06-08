@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const response = await axios.post('http://127.0.0.1:5000/extract_insight', {
+    const response = await axios.post('https://smart-data-backend.onrender.com/extract_insight', {
       user_description,
       user_id,
     }, {

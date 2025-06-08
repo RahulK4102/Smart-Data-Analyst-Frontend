@@ -5,7 +5,7 @@ export async function POST(request: NextRequest) {
   const { query,context,user_id,column_mapping } = await request.json();
     try {
       const response = await axios.post(
-        'http://127.0.0.1:5000/process_query',
+        'https://smart-data-backend.onrender.com/process_query',
         {
             user_id: user_id,
             context: context,

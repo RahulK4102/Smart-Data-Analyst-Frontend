@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
   newFormData.append('user_id', userId);
 
   try {
-    const response = await axios.post('http://127.0.0.1:5000/process_dataset', newFormData, {
+    const response = await axios.post('https://smart-data-backend.onrender.com/process_dataset', newFormData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

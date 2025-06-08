@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     console.log("inside the Report Generation"+column_mapping);
     try {
       const response = await axios.post(
-        'http://127.0.0.1:5000/generate_report',
+        'https://smart-data-backend.onrender.com/generate_report',
         { user_id,column_mapping:column_mapping,business_context:business_context },
         {
           headers: {

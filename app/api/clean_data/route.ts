@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     console.log("inside the data cleaning"+choice);
     try {
       const response = await axios.post(
-        'http://127.0.0.1:5000/handle_nulls',
+        'https://smart-data-backend.onrender.com/handle_nulls',
         { user_id,choice:choice },
         {
           headers: {
